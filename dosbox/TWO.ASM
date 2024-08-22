@@ -1,21 +1,18 @@
 assume cs:code
 assume ds:data
 data segment
-str1 db 'cse'
+num1 db 06h
+num2 db 02h
+res db ?
 data ends
 code segment
 start:
 mov ax,data
 mov ds,ax
-lea si,str1
-lea di,str1+6
-go:
-mov al,[si]
-mov [di],al
-inc si
-dec di
-jnz go
+mov al,num1
+mov bl,num2
+sub al,bl
+mov res,al
 int 03h
 code ends
 end start
-
