@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      p {
+        display: block;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      header,
+      footer {
+        color: white;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: pink;
+        padding: 10px;
+      }
+      footer {
+        position: absolute;
+        bottom: 0;
+      }
+      main {
+        background-color: gainsboro;
+      }
+      .heading {
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .features {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .fh {
+        margin-top: 20px;
+        display: block;
+      }
+      .feature1 {
+        width: 400px;
+        height: 50px;
+        border: 2px solid gray;
+        border-radius: 5px;
+      }
+      main {
+        padding: 20px;
+      }
+      label {
+        font-size: 20px;
+        display: block;
+      }
+      input {
+        width: 80%;
+        margin: 10px;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+      }
+      textarea {
+        width: 80%;
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+      }
+      button {
+        width: 20%;
+        background-color: pink;
+        padding: 15px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Our Services</h1>
+      <p class="tab"></p>
+    </header>
+    <main>
+      <div class="heading">
+        <h3>Discover Our Solutions</h3>
+        <p>we provide top-noch solutions tailored to your needs.</p>
+      </div>
+      <h3 class="fh">Features</h3>
+      <div class="features"></div>
+      <div class="contact">
+        <h3 class="fh">Contact us</h3>
+        <p>Get in touch with us for more information</p>
+        <label for="">Name: </label>
+        <input type="text" name="" id="" />
+        <label for="">Email: </label>
+        <input type="text" />
+        <label for="">Message: </label>
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <button>Send Message</button>
+      </div>
+    </main>
+  </body>
+  <footer>
+    <h1>@ 2024 Our Service</h1>
+  </footer>
+  <script>
+    function render() {
+      const header = document.querySelector(".tab");
+      const features = document.querySelector(".features");
+      if (window.innerWidth < 768) {
+        header.innerHTML = "You are using a mobile";
+        features.innerHTML = `<div class='feature1'> mobile feature 1</div>
+            <div class='feature1'> mobile feature 2</div>
+            `;
+      } else if (window.innerWidth < 1025) {
+        header.innerHTML = "You are using a tablet";
+        features.innerHTML = `<div class='feature1'> tablet feature 1</div>
+            <div class='feature1'> tablet feature 2</div>
+             <div class='feature1'> tablet feature 3</div>
+            `;
+      } else {
+        header.innerHTML = "You are using a desktop";
+        features.innerHTML = `<div class='feature1'> desktop feature 1</div>
+            <div class='feature1'> desktop feature 2</div>
+             <div class='feature1'> desktop feature 3</div>
+              <div class='feature1'> desktop feature 4</div>
+            `;
+      }
+    }
+    window.onload = render;
+    window.onresize = render;
+  </script>
+</html>
