@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
+      header,
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: palevioletred;
+        padding: 30px;
+        color: white;
+      }
+      main {
+        margin: 20px;
+        padding: 30px;
+        background-color: gainsboro;
+      }
+      strong {
+        display: inline-block;
+      }
+      p {
+        display: inline-block;
+      }
+      .comments {
+        margin-top: 30px;
+      }
+      input,
+      textarea {
+        width: 70%;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+      }
+      button {
+        width: 100px;
+        height: 30px;
+        background-color: palevioletred;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>My Blog</h1>
+    </header>
+    <main>
+      <h1>Web Technologies</h1>
+      <div class="datanma">
+        <div>
+          <strong>Author: </strong>
+          <p>ABCDE</p>
+          <div>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum
+            doloremque quisquam excepturi neque, exercitationem
+          </div>
+        </div>
+      </div>
+
+      <div class="comments">
+        <h3>Comments:</h3>
+        <h5>Name:</h5>
+        <input type="text" class="name" />
+        <h5>comment:</h5>
+        <textarea name="" class="ta" cols="30" rows="10"></textarea>
+        <button class="submit">Submit</button>
+      </div>
+    </main>
+  </body>
+  <footer>
+    <h4>My blog 2024</h4>
+  </footer>
+  <script>
+    const btn = document.querySelector(".submit");
+    btn.addEventListener("click", () => {
+      const name = document.querySelector(".name").value;
+      const comment = document.querySelector(".ta").value;
+      const parent = document.querySelector(".datanma");
+      const div = document.createElement("div");
+      div.innerHTML = `<strong>Author: </strong>
+        <p>${name}</p>
+        <div>
+          ${comment}
+        </div>`;
+      parent.appendChild(div);
+    });
+  </script>
+</html>
