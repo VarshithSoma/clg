@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 8vh;
+        background-color: paleturquoise;
+      }
+      #textareacomp,
+      textarea {
+        width: 100%;
+        margin-top: 30px;
+      }
+      input {
+        width: 100%;
+        padding: 10px;
+      }
+      main {
+        background-color: aliceblue;
+      }
+      button {
+        margin: 20px;
+        padding: 10px;
+        background-color: pink;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Text manipulation with Regular Expressions</header>
+    <main>
+      <textarea name="inputText" id="textareacomp" cols="30" rows="10">
+Enter Text Here... ..</textarea
+      >
+      <h4>Search Pattern</h4>
+      <input type="text" class="searchPatten" />
+      <h4>Replace With</h4>
+      <input type="text" class="ReplaceWith" />
+      <div class="btns">
+        <button class="search">search</button>
+        <button class="Replace">Replace</button>
+        <button class="format">format</button>
+      </div>
+      <textarea
+        name="inputText"
+        id="output"
+        cols="30"
+        rows="10"
+        readonly
+      ></textarea>
+    </main>
+  </body>
+  <script>
+    const search = document.querySelector(".search");
+    const Replace = document.querySelector(".Replace");
+    const format = document.querySelector(".format");
+    search.addEventListener("click", () => {
+      const inputText = document.querySelector("#textareacomp").value;
+      const patten = document.querySelector(".searchPatten").value;
+      const regex = new RegExp(patten, "g");
+      const data = inputText.match(regex);
+      document.querySelector("#output").innerHTML = data.join();
+    });
+    Replace.addEventListener("click", () => {
+      const inputText = document.querySelector("#textareacomp").value;
+      const patten = document.querySelector(".searchPatten").value;
+      const Replacepatten = document.querySelector(".ReplaceWith").value;
+      const data = inputText.replace(patten, Replacepatten);
+      document.querySelector("#output").innerHTML = data;
+    });
+    format.addEventListener("click", () => {
+      const inputText = document.querySelector("#textareacomp").value;
+      const formattedText = inputText.replace(/\b\w/g, (char) =>
+        char.toUpperCase()
+      );
+      document.querySelector("#output").innerHTML = formattedText;
+    });
+  </script>
+</html>
