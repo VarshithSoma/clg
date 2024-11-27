@@ -17,7 +17,7 @@ int main(){
         }
          strncat(stuffed,&input[i],1);
     }
-   strncat(stuffed,&ed,1);
+    strncat(stuffed,&ed,1);
     printf("\nAfter stuffing: %s\n", stuffed);
     return 0;
 }
