@@ -15,7 +15,7 @@ int main(){
         }
         tat[i]=wt[i]+bt[i];
         awt+=wt[i];
-        atat=tat[i];
+        atat+=tat[i];
     }
      printf("\nPROCESS\tBURST TIME\tWAITING TIME\tTURNAROUND TIME\n");
     for (int i = 0; i < n; i++) {
