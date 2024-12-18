@@ -10,10 +10,12 @@ void main(){
     scanf("%d",&n);
     printf("Enter cost matrix: ");
     for(i=0;i<n;i++){
-        scanf("%d",&dmat[i][j]);
-        dmat[i][i]=0;
-        rt[i].dist[j]=dmat[i][j];
-        rt[i].from[j]=j;
+        for(int j=0;j<n;j++){
+            scanf("%d",&dmat[i][j]);
+            dmat[i][i]=0;
+            rt[i].dist[j]=dmat[i][j];
+            rt[i].from[j]=j;
+        }    
     }
     do{
         count=0;
