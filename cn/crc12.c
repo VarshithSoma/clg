@@ -1,5 +1,6 @@
 #include <stdio.h>
-#define N strlen(gen_poly)
+#include<string.h>
+int  N=0;
 char data[28], check_value[28], gen_poly[10];
 int data_length;
 void XOR() {
@@ -41,6 +42,7 @@ int main() {
     scanf("%s", data);
     printf("\nEnter the generating polynomial: ");
     scanf("%s", gen_poly);
+    N=strlen(gen_poly);
     data_length = strlen(data);
     for (int i = data_length; i < data_length + N - 1; i++) {
         data[i] = '0';

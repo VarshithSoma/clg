@@ -1,14 +1,10 @@
 #include <stdio.h>
-#include <conio.h>
 #include <string.h>
-
 void main() {
     int alloc[10][10], max[10][10], avail[10], work[10], total[10];
     int need[10][10];
     int n, m, i, j, k, count = 0, c = 0;
     char finish[10];
-
-    clrscr(); // Clear screen (Turbo C specific)
 
     // Input number of processes and resources
     printf("Enter the number of processes and resources: ");
@@ -85,12 +81,10 @@ void main() {
 
         if (!allocated) { // If no allocation could be done
             printf("\nSystem is not in a safe state!");
-            getch();
             return;
         }
     }
 
     printf("\n\nSystem is in a safe mode");
     printf("\nThe given state is a safe state");
-    getch(); // Wait for keypress (Turbo C specific)
 }

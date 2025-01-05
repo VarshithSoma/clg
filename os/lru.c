@@ -43,10 +43,7 @@ void main() {
             pf++;
         }
         for (j = 0; j < f; j++) {
-            if (m[j] != -1)
-                printf("%d\t", m[j]);
-            else
-                printf("-\t");
+            printf("%d\t", m[j]);
         }
         if (flag[i] == 0) {
             printf("PF No. -- %d", pf);
