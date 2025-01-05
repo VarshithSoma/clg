@@ -1,5 +1,4 @@
 #include <stdio.h>
-
 int main() {
     int i, j, k, f, pf = 0, count = 0, rs[25], m[10], n;
     printf("\nEnter the length of reference string: ");
@@ -19,13 +18,11 @@ int main() {
             if (m[k] == rs[i]) 
                 break;
         }
-
         if (k == f) { 
             m[count] = rs[i];
             count = (count + 1) % f; 
             pf++; 
         }
-
         for (j = 0; j < f; j++) {
             printf("\t%d", m[j]);
         }
@@ -34,8 +31,6 @@ int main() {
         }
         printf("\n");
     }
-
     printf("\nThe number of Page Faults using FIFO are: %d\n", pf);
-
     return 0;
 }

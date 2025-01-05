@@ -27,7 +27,7 @@ int main(){
     wt[0]=0;
     tat[0]=bt[0];
     for(int i=1;i<n;i++){
-        wt[i]=wt[i-1]+tat[i-1];
+        wt[i]=wt[i-1]+bt[i-1];
         tat[i]=wt[i]+bt[i];
         att+=tat[i];
         awt+=wt[i];

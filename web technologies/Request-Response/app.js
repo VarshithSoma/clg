@@ -1,24 +1,18 @@
 const express = require("express");
 const app = express();
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-app.get("/user/:id", (req, res) => {
+app.get("/users/:id", (req, res) => {
   const userId = req.params.id;
-  const user = { id: userId, name: "varshith" };
-  res.send(user);
+  res.send({ id: userId, name: "varshith" });
 });
 app.get("/all", (req, res) => {
-  const users = [
+  const data = [
     { id: 1, name: "varshith" },
-    { id: 2, name: "varshith" },
+    { id: 2, name: "vathsal" },
   ];
-  res.send(users);
+  res.send(data);
 });
-app.post("/user", (req, res) => {
-  const nuser = req.body;
-  req.status(201).json(nuser);
+app.post("/", (req, res) => {
+  const newUser = req.body;
+  res.status(201).send(newUser);
 });
-app.listen(3000, () => {
-  console.log("server running at port 3000");
-});
+app.listen(8000, () => {});

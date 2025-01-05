@@ -1,17 +1,15 @@
 const express = require("express");
 const app = express();
-
+const port = 8000;
 app.set("view engine", "ejs");
 app.set("views", "./views");
-
 app.get("/", (req, res) => {
   const data = {
     title: "varshith",
-    message: "Hello World",
+    messgae: "hello world",
   };
-  res.render("index", data); // Use res.render to render the EJS file
+  res.render("index", data);
 });
-
-app.listen(3000, () => {
-  console.log("Server running at port: 3000");
+app.listen(port, () => {
+  console.log("running");
 });
