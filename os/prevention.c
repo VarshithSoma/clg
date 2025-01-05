@@ -1,53 +1,45 @@
 #include <stdio.h>
 void main() {
-    int ms, ps, nop, np, rempages, i, j, x, y, pa, offset;
-    int s[10], fno[10][20];
+    char job[10][10];
+    int time[10], avail, temp[10], tem[10], safe[10], ind = 0, i, j, n, t, q;
+    printf("Enter the number of jobs: ");
+    scanf("%d", &n);
+    for (i = 0; i < n; i++) {
+        printf("Enter job name and time: ");
+        scanf("%s %d", job[i], &time[i]);
+    }
+    printf("Enter the available resources: ");
+    scanf("%d", &avail);
+    for (i = 0; i < n; i++) {
+        temp[i] = time[i];
+        tem[i] = i; // Store the original indices
+    }
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            if (temp[i] > temp[j]) {
+                t = temp[i];
+                temp[i] = temp[j];
+                temp[j] = t;
 
-    // Input memory size and page size
-    printf("\nEnter the memory size -- ");
-    scanf("%d", &ms);
-
-    printf("\nEnter the page size -- ");
-    scanf("%d", &ps);
-
-    // Calculate the number of pages available
-    nop = ms / ps;
-    printf("\nThe number of pages available in memory are -- %d", nop);
-
-    // Input number of processes
-    printf("\nEnter number of processes -- ");
-    scanf("%d", &np);
-
-    rempages = nop; // Remaining pages in memory
-
-    for (i = 1; i <= np; i++) {
-        // Input number of pages required for process
-        printf("\nEnter number of pages required for p[%d]-- ", i);
-        scanf("%d", &s[i]);
-
-        if (s[i] > rempages) {
-            printf("\nMemory is Full");
-            break;
-        }
-
-        rempages -= s[i]; // Deduct pages from remaining
-        printf("\nEnter page table for p[%d] --- ", i);
-        for (j = 0; j < s[i]; j++) {
-            scanf("%d", &fno[i][j]); // Input frame numbers
+                t = tem[i];
+                tem[i] = tem[j];
+                tem[j] = t;
+            }
         }
     }
-
-    // Input logical address details
-    printf("\nEnter Logical Address to find Physical Address");
-    printf("\nEnter process no., page number, and offset -- ");
-    scanf("%d %d %d", &x, &y, &offset);
-
-    // Validate inputs
-    if (x > np || y >= s[x] || offset >= ps) {
-        printf("\nInvalid Process or Page Number or Offset");
+    for (i = 0; i < n; i++) {
+        q = tem[i];
+        if (time[q] <= avail) {
+            safe[ind++] = q; // Add to safe sequence
+            avail -= time[q]; // Reduce available resources
+        }
+    }
+    if (ind == 0) {
+        printf("No safe sequence.\n");
     } else {
-        // Calculate physical address
-        pa = fno[x][y] * ps + offset;
-        printf("\nThe Physical Address is -- %d", pa);
+        printf("Safe sequence is:\n");
+        for (i = 0; i < ind; i++) {
+            printf(" %s %d\n", job[safe[i]], time[safe[i]]);
+        }
     }
 }
