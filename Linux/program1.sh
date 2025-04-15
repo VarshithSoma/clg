@@ -1,19 +1,17 @@
-#!/bin/bash
-
-echo "Enter file name"
+#/bin/bash
+echo "enter filename : "
 read f
-echo "Enter the starting position"
-read s
-echo "Enter the ending postion"
-read e
-if [ $s -lt $e ]
+echo "enter start line : "
+read st
+echo "enter end line : "
+read end
+if [ $st -lt $end ]
 then
-n1=` expr $s + 1 `
-n2=` expr $e - 1 `
-head -$n2 $f|tail -$n1
+    n1=`expr $st + 1`
+    n2=`expr $end - 1`
+    head -$n2 $f|tail +$n1
 else
-n1=` expr $e + 1 `
-n2=` expr $s - 1 `
-head -$n2 $f|tail -$n1
+    n1=`expr $end + 1`
+    n2=`expr $start - 1`
+    head -$n2 $f|tail +$n1
 fi
-
