@@ -5,7 +5,7 @@ echo "enter start line : "
 read st
 echo "enter end line : "
 read end
-if [ $st -lt $end ]
+if [ "$st" -lt "$end" ]
 then
     n1=`expr $st + 1`
     n2=`expr $end - 1`

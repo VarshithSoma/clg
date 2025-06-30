@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "enter directory name "
 read dir
-if [ -d dir ]
+if [ -d "$dir" ]
 then
   cd "$dir"
   ls > f
