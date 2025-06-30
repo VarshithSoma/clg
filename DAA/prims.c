@@ -16,12 +16,12 @@ int prims(){
         }
     }
     distance[0]=0;
-    visisted[i]=1;
     for(i=0;i<n;i++){
         visisted[i]=0;
         from[i]=0;
         distance[i]=cost[0][i];
     }
+    visisted[0]=1;
     min_cost=0;
     count=n-1;
     while(count>0){
