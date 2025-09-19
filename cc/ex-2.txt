@@ -1,0 +1,12 @@
+1.open virtualbox
+2.file->import appliance
+3.browse ubuntu-gt6.ova file
+4.then go to settings select usb and select usb 1.1
+5.then start the ubuntu-gt6
+6.login using username:root and password:root
+
+1.open terminal
+2.type cd /opt/axis/axis2-1.3.7/bin then enter
+3.gedit hello.c
+4.gcc hello.c
+5../a.out

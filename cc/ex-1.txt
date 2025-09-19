@@ -1,0 +1,21 @@
+1.download the virtualbox.exe and click the exe file
+2.click on next button.
+3.click on next button.
+4.click on yes.
+5.click on install.
+
+1.open virtualbox
+2.file->import appliance
+3.browse open-nebula-sandbox-5.0.ova file
+4.then go to settings and select usb and select usb 1.1
+5.then start the open nebula
+6.login using username:root password:opennebula
+
+1.open browser open localhost:9869
+2.login using username:oneadmin password:opennebula
+3.click on instances and follow steps
+    a.click on + button
+    b.select oneadmin
+    c.then enter the vm name , no of instances, cpu
+    d.click on create button
+    e. repeat steps c and d for more instances

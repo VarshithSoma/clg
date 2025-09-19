@@ -1,0 +1,14 @@
+1.install google plugin for the eclipse.
+2.create new web application project
+3.helloworld
+4.run it in local
+5.deploy on gogle app engine
+
+<?xml version=1 encoding="utf-8">
+    <appengine-webapp xml="https://appengine.google.com/rs/1.0">
+    <application>mkyoung123</application>
+    <version>1</version>
+    <system-preferences>
+        <property name="java.util.logging.config.file" value="web-INF/logging.properties"">
+    </system-preferences>
+    </appengine-webapp>
