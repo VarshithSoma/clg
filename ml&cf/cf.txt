@@ -1,0 +1,409 @@
+Forensic Tools – Disk Forensics and Data Recovery
+Objective: Understand and use open-source tools for disk forensics and file recovery.
+Tools: Autopsy, Sleuth Kit, TestDisk, PhotoRec
+Procedure:
+Install Autopsy or Sleuth Kit.
+Create a disk image using dd or use a USB drive.
+Load the image in Autopsy.
+Navigate through partitions, deleted files, and metadata.
+Recover deleted files using PhotoRec/TestDisk.
+1. Install Autopsy or Sleuth Kit
+On Linux:
+Install Sleuth Kit and Autopsy via package manager:
+sudo apt update
+sudo apt install sleuthkit autopsy
+You can also run Autopsy directly via the command line:
+autopsy
+Then open http://localhost:9999/autopsy in your browser.
+If you want the latest version, consider downloading it from:
+https://www.sleuthkit.org/autopsy/
+On Windows:
+1. Download the latest installer from: https://www.sleuthkit.org/autopsy/
+2. Run the installer and follow the instructions.
+2. Create a Disk Image using dd
+NOTE: Use sudo and ensure you're imaging the correct drive to avoid data loss.
+21
+Find the device:
+sudo fdisk -l
+Create an image (e.g., of a USB drive /dev/sdb):
+sudo dd if=/dev/sdb of=usb_image.dd bs=4M status=progress
+● if= = input file/device (e.g. /dev/sdb)
+● of= = output image file (e.g. usb_image.dd)
+● bs= = block size
+● status=progress shows progress
+This will create a raw disk image usb_image.dd.
+3. Load the Image in Autopsy
+Start Autopsy:
+On Linux:
+autopsy
+On Windows: Open Autopsy via Start Menu.
+Steps in GUI:
+1. Create New Case → Enter name and directory.
+2. Add Data Source → Select Disk Image or VM File.
+3. Browse to the .dd file you created.
+4. Choose the ingest modules (leave defaults or select what you need).
+5. Start ingest.
+4. Navigate Through Partitions, Deleted Files, Metadata
+After ingest, Autopsy allows you to explore:
+● File Systems: FAT/NTFS/ext/etc.
+● Deleted Files: Found under Deleted Files node or using keyword search.
+● Metadata: File MAC times (Modified, Accessed, Created), EXIF, etc.
+22
+● Recent Activity: Web, docs, etc.
+● Keyword & File Search
+5. Recover Deleted Files Using PhotoRec or TestDisk
+Install if not already:
+sudo apt install testdisk
+Launch:
+sudo photorec
+Steps in PhotoRec:
+1. Select the image or disk (e.g., usb_image.dd or /dev/sdb)
+2. Choose the partition if needed.
+3. Select filesystem type (usually Other for FAT/NTFS).
+4. Choose location to save recovered files.
+5. It will scan and save recoverable files by type (e.g., JPG, PDF, DOC).
+You can also use TestDisk to:
+● Recover partitions
+● Undelete files (NTFS/FAT/ext2)
+● Fix boot sectors
+sudo testdisk
+Where Recovered Files Are Stored:
+PhotoRec stores recovered files in folders named:
+recup_dir.1, recup_dir.2, ...
+Each will contain files like f123456.jpg, f123457.pdf, etc., based on signature.
+Observation: Note the recovered files, their type, and how intact they are.
+23
+2. Study of Computer Forensics and Different Tools
+Objective: Study common forensic tools and their applications.
+Tools: FTK Imager, EnCase, Autopsy, Volatility, Wireshark, X-Ways Forensics
+Procedure:
+1. Tool Overviews
+1.1 The Sleuth Kit (TSK) & Autopsy
+Purpose / Role
+● The Sleuth Kit (TSK) is a library and collection of command-line utilities for filesystem and disk
+image forensics: e.g. parsing partitions, examining filesystem structures, recovering files,
+analyzing metadata, timelines, etc. (sleuthkit.org)
+● Autopsy is a graphical forensic browser (a GUI front-end) built atop TSK and other modules: it
+provides ingest modules, visualization, indexing, timeline, keyword search, and ease of
+navigation of disk images. (GitHub)
+Platform / OS Support
+● TSK: works on Unix-like systems and Windows (cross-platform) as command-line tools / library.
+(Wikipedia)
+● Autopsy: supports Windows, Linux, and macOS (with some caveats). (Autopsy)
+License / Licensing Model
+● Autopsy (recent versions, v3, v4): Apache License 2.0. (sleuthkit.org)
+● TSK: its source code is distributed under multiple licenses, depending on module: core
+filesystem tools under IBM Public License or Common Public License, some utilities under GPL or
+other open licenses. (sleuthkit.org)
+Key Features
+● Disk image ingestion (raw/dd, E01, AFF, etc.)
+● Partition identification, volume systems, logical partitions
+● File system browsing (NTFS, FAT, ext, HFS+, etc.)
+● Deleted file recovery via filesystem metadata (when possible)
+● Metadata extraction: timestamps (MAC times), file attributes, slack space
+● Hashing (MD5, SHA1, SHA256) and hash database lookup (e.g. NSRL)
+24
+● Timeline generation (mactime, event timeline)
+● Keyword / full-text search / indexing
+● Plugin / modular architecture to extend ingest or analysis
+● Report generation (HTML, XLS, etc.)
+Limitations / Constraints
+● If file metadata is lost or overwritten, recovery may be limited
+● Carving (signature-based recovery) is weaker or external (Autopsy may rely on external carving)
+● Performance may degrade for very large images (I/O, memory, indexing bottlenecks)
+● Some newer or exotic filesystems or encryption schemes may not be fully supported
+1.2 TestDisk & PhotoRec (by CGSecurity)
+Purpose / Role
+● TestDisk: for recovering lost partitions, fixing partition tables, and occasionally undeletion of files
+on supported filesystems. (GitHub)
+● PhotoRec: a file carving/data recovery tool that scans the raw data (bypassing filesystem
+metadata) for known file signatures and recovers files. (GitHub)
+Platform / OS Support
+● Run via command line on many platforms: DOS, Windows, Linux, FreeBSD, NetBSD, OpenBSD,
+SunOS. (GitHub)
+● PhotoRec also offers a GUI wrapper (e.g. QPhotoRec) in some environments. (TechRadar)
+License / Licensing Model
+● Both TestDisk and PhotoRec are licensed under GPL v2 (or later) (GNU General Public License)
+(GitHub)
+Key Features
+● TestDisk: repair partition table, recover lost partitions, rebuild boot sectors, repair filesystems
+(FAT/NTFS), undeletion on FAT/NTFS/ext filesystems. (Neowin)
+● PhotoRec: metadata-independent recovery by scanning for file header signatures (“carving”) —
+supports over 300 file families / over 480 file extensions. (CGSecurity)
+● It can operate on disk images (raw) or on physical drives. (GitHub)
+25
+Limitations / Constraints
+● PhotoRec does not preserve original file names, directory paths, or metadata (it recovers raw
+files).
+● For fragmented files, carving might recover partial or corrupt output.
+● TestDisk’s undeletion is limited to certain filesystems and when metadata is still recoverable.
+● Becoming riskier when used on a failing disk (further wear) — better to work on a forensic copy.
+2. Comparison Table
+Below is a comparison chart summarizing the tools, their supported formats, features, strengths &
+weaknesses.
+Feature / Aspect Role / Use-case
+Licensing
+Platform / OS
+Supported
+Filesystems /
+Partitions
+Image / Disk
+Formats Supported
+Deleted File
+Recovery
+Metadata &
+Timeline
+Sleuth Kit / Autopsy Full forensic analysis, evidence
+management, metadata + file recovery,
+timeline, indexing
+Autopsy: Apache 2.0 (sleuthkit.org);
+TSK: mixed (IBM, CPL, some GPL)
+(sleuthkit.org)
+Autopsy: Windows, Linux, macOS
+(Autopsy); TSK: cross-platform C tools
+(GitHub)
+FAT, exFAT, NTFS, ext2/3/4, HFS+,
+YAFFS2, UFS, etc. (via TSK) (Wikipedia);
+supports GPT, MBR, volume systems
+etc.
+Raw/dd, E01, AFF, possibly VHD, etc. via
+modules
+Via filesystem metadata (where
+available), combining TSK utilities; can
+often retain file name, path, metadata
+Strong support: timestamps, MAC
+times, event timeline, registry artifacts,
+etc.
+TestDisk / PhotoRec
+Partition recovery and raw file carving / data
+recovery
+GPL v2 (or later) for both TestDisk and
+PhotoRec (GitHub)
+TestDisk/PhotoRec: Windows, Linux, *BSD,
+macOS, DOS, etc. (GitHub)
+TestDisk: supports FAT12/16/32, NTFS,
+ext2/3/4, HFS+, JFS, XFS, UFS, etc. (GitHub)
+Works on raw / dd images and on physical
+drives (Wikipedia)
+PhotoRec: signature carving (loses file name
+/ path) (CGSecurity) ; TestDisk: undeletion
+(where metadata intact) (Neowin)
+Minimal (PhotoRec ignores metadata,
+TestDisk is focused on partition/structural
+recovery)
+26
+Feature / Aspect Sleuth Kit / Autopsy TestDisk / PhotoRec
+Keyword Search /
+Indexing
+Yes (full-text, metadata, regex) via
+modules No, not primary function
+Plugin /
+Extensibility
+Yes (in Autopsy) — ingest modules,
+add-ons Limited / none
+Reporting &
+Evidence
+Management
+Yes (case structure, reporting, audit
+trails) Minimal / not project-based
+Strengths Comprehensive forensic workbench,
+integrates many analyses
+Excellent for raw recovery, partition repair,
+and rescue scenarios
+Weaknesses May be heavy / resource intensive; not
+ideal for raw carving in some cases
+Cannot preserve file structure or names via
+PhotoRec; limited forensic context
+Best Use Case Formal forensic analysis, investigations,
+evidence chain-of-custody
+Emergency recovery, partition repair, carving
+from damaged media
+27
+3. How to Recover Deleted Files Using Forensic Tools
+Objective: Recover deleted files using forensic tools.
+Tools: Recuva, PhotoRec, Autopsy
+Procedure:
+Delete a sample file (e.g., .docx) from a USB drive.
+Use Recuva to scan the drive.
+Recover the deleted file and verify its contents.
+Repeat using PhotoRec or Autopsy.
+Prerequisites
+● A USB drive (preferably not your main one).
+● A sample file, e.g., TestFile.docx.
+● Tools installed:
+o Recuva (Windows GUI tool)
+o PhotoRec (part of TestDisk suite, cross-platform)
+o Autopsy (digital forensic analysis tool)
+Step 1: Delete a sample file
+1. Insert the USB drive.
+2. Copy a test file to it, e.g.,
+3. D:\TestFile.docx
+4. Delete the file manually — right-click → Delete, or use:
+5. del D:\TestFile.docx
+6. Do not copy or create new files on the USB afterward — this prevents overwriting.
+Step 2: Recover using Recuva
+🔹 🔹 🔹 Steps:
+28
+1. Launch Recuva.
+2. Select File Type: choose Documents.
+3. Select Location: choose your USB drive (e.g., D:\).
+4. Click Scan.
+5. After the scan:
+o Locate your deleted file (TestFile.docx).
+o Check its status (Green = Excellent chance of recovery).
+Select it → click Recover → choose a different location (e.g., Desktop).
+6. 🔹 🔹 🔹 Verify:
+Open the recovered .docx file to ensure contents are intact.
+Step 3: Recover using PhotoRec
+🔹 🔹 🔹 Steps:
+1. Open a command prompt or terminal where PhotoRec is installed.
+2. Run:
+3. photorec
+4. Choose your USB drive from the list.
+5. Choose the partition (usually FAT32 or exFAT for USB).
+6. Select [File Opt] → enable only docx.
+7. Choose [Search].
+8. Select [Free] (to scan only unallocated space).
+9. Choose an output folder on your hard drive (e.g., Desktop).
+10. Let PhotoRec recover files.
+🔹 🔹 🔹 Verify:
+● Check the recovered folder.
+● Locate the .docx file.
+● Open it to confirm integrity.
+29
+Step 4: Recover using Autopsy
+🔹 🔹 🔹 Steps:
+1. Launch Autopsy.
+2. Create a New Case → name it e.g., USB_Recovery_Test.
+3. Add Data Source → select your USB drive.
+4. Choose Logical Files or Disk Image/Drive.
+5. Let Autopsy process the data.
+6. Once done:
+o Navigate to Deleted Files in the file tree.
+o Locate your TestFile.docx.
+Right-click → Extract File(s) → choose recovery location.
+7. Verify:
+Open the file from the extracted folder.
+Observation: Note which files were fully/partially recovered.
+30
+4. Hide and Extract Text File Behind Image/Audio Using CMD
+Objective: Learn basic steganography using the Command Prompt.
+Tools: CMD, WinRAR
+Procedure:
+Create a text file (e.g., secret.txt) and compress it to secret.rar.
+Use the command:
+arduino
+CopyEdit
+copy /b image.jpg + secret.rar output.jpg
+The output.jpg will now contain hidden data.
+extract
+Rename output.jpg to output.rar and extract.
+Observation: Confirm if the text is successfully hidden and retrieved.
+31
+5. Keyloggers
+Objective: Understand how keyloggers record keystrokes.
+Procedure:
+Experiment A — Controlled keystroke logging (local-only)
+Objective: Observe where typed text appears on disk and in memory and how to find it.
+Procedure:
+1. In the Windows VM, open the safe HTML keystroke tester in a browser and type a few
+sample emails there. Click Download Log to create a text file in
+C:\Users\<Test>\Desktop\keystroke_log.txt.
+2. Take a disk image (use FTK Imager or dd) and a memory capture (e.g., use Belkasoft or
+winpmem) of the running VM while the file exists.
+3. Revert to a snapshot or shutdown VM.
+Analysis:
+● Use Autopsy or Sleuth Kit to examine the disk image and find the log file by filename
+and content.
+● Use strings against the memory dump to search for fragments of the typed text (e.g.,
+unique words from your sample email).
+● Document file timestamps, owning process (if available), and any evidence of file writes
+(from system logs).
+Expected artifacts: keystroke_log.txt on disk; fragments of the typed text in memory.
+1. 2. 3. Experiment B — Persistence & detection (simulated)
+Objective: Observe autostart artifacts and how to detect them.
+Procedure:
+In the VM create a benign scheduled task that runs a simple harmless script (e.g., a echo
+"test" >> C:\temp\marker.txt) at user logon. Give it an obviously labeled name, e.g.,
+Test_Persistence_Task.
+Take snapshot, then start VM and trigger login.
+Take disk and registry snapshots.
+Analysis:
+● Use Autoruns (Sysinternals) to find the scheduled task / autostart entry.
+● Inspect HKCU\...\Run and Task Scheduler tasks folder for the entry.
+32
+● Correlate timestamps and process events using Windows Event Logs or Sysmon if
+enabled.
+Expected artifacts: scheduled task metadata, created marker file, registry entries.
+.
+Observation: Analyze how keyloggers work and potential ethical/legal risks.
+6. Network Monitors
+Objective: Monitor live network traffic and extract data packets.
+Tools: Wireshark
+Procedure:
+Start Wireshark and begin capturing on an active interface.
+Browse websites or download a file.
+Filter packets by protocols (HTTP, TCP, etc.).
+Analyze IPs, payloads, and flags.
+1. Open Wireshark
+o Launch Wireshark on the machine you will monitor.
+2. Choose the active interface and start capturing
+o In the main list, double-click the interface that shows traffic (e.g., Wi-Fi, Ethernet, en0).
+o Click the red Start button if needed.
+3. Generate traffic
+o While capture is running, open your browser and visit a website or download a small file.
+4. Stop and save the capture
+o Click the red Stop square.
+o File → Save As → save capture.pcapng.
+5. Show only a protocol (display filter)
+o In the filter bar at the top type one of these and press Enter:
+▪ http — show HTTP traffic
+33
+▪ tcp — show all TCP packets
+▪ dns — show DNS traffic
+▪ tls — show TLS/SSL traffic
+6. Find endpoints and conversations
+o Statistics → Endpoints — lists IP addresses and traffic volume.
+o Statistics → Conversations — shows IP↔IP pairs (flows).
+o Click an entry to jump to related packets.
+7. Look at payloads (HTTP only / unencrypted)
+o Filter http.
+o Select an HTTP response packet → right-click → Follow → TCP Stream to view the full
+request/response.
+o To export files: File → Export Objects → HTTP.
+8. Inspect IPs
+o Click a packet and expand Internet Protocol in the middle pane to view
+source/destination IPs.
+o Use display filter ip.addr == x.x.x.x to show packets involving that IP.
+9. Check TCP flags (handshake / teardown / resets)
+o Useful filters:
+▪ SYN (new connections): tcp.flags.syn == 1 && tcp.flags.ack == 0
+▪ SYN-ACK (server reply): tcp.flags.syn == 1 && tcp.flags.ack == 1
+▪ FIN (close): tcp.flags.fin == 1
+▪ RST (reset): tcp.flags.reset == 1
+o Select a TCP packet and expand Transmission Control Protocol to see flag bits.
+10. Quick CLI alternatives (optional)
+o Capture to file with tcpdump:
+sudo tcpdump -i eth0 -w capture.pcap
+34
+o List interfaces with tshark: tshark -D
+o Show HTTP requests from a file:
+tshark -r capture.pcap -Y "http.request" -T fields -e ip.src -e http.host -e http.request.uri
+11. Notes about HTTPS/TLS
+o HTTPS payloads are encrypted; you will not see page contents unless you control the
+client and enable TLS key logging (set SSLKEYLOGFILE in the browser) and configure
+Wireshark to use that key file.
+Observation: Understand traffic behavior and packet structures.
+7. Steganography
+Objective: Hide data using steganography tools.
+Tools: Steghide, SilentEye
+Procedure:
+Use Steghide:
+CopyEdit
+steghide embed -cf image.jpg -ef secret.tx
+Set a passphrase.
+To extract:arduino
+CopyEdit
+steghide extract -sf image.jpg
+Enter passphrase to retrieve secret.txt.
+Observation: Verify the concealment and recovery of data.
