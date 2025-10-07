@@ -1,4 +1,3 @@
----
 
 ## 🧪 **EXPERIMENT 1** — *Central Tendency and Dispersion*
 
@@ -200,6 +199,3 @@ plt.title("Actual vs Predicted House Prices")
 plt.show()
 ```
 
----
-
-Would you like me to make all 5 experiments into a **formatted PDF lab record** (with output and explanations)?
